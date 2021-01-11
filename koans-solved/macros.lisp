@@ -35,10 +35,7 @@
                           (= 0 (random 6))
                           (= 0 (random 6))
                           (error "Bang!"))
-                  '(when (= 0 (random 6))
-                    (when (= 0 (random 6))
-                      (when (= 0 (random 6))
-                        (error "Bang!"))))))
+                  ____))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -54,8 +51,8 @@
           (result '()))
       (for (i 0 3)
            (push i result)
-           (assert-equal 3 limit))
-      (assert-equal '(0 1 2 3) (nreverse result)))))
+           (assert-equal ____ limit))
+      (assert-equal ____ (nreverse result)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -74,9 +71,9 @@
       (flet ((return-0 () (push 0 side-effects) 0)
              (return-3 () (push 3 side-effects) 3))
         (for (i (return-0) (return-3))
-             (push i result)))
-      (assert-equal '(0 1 2 3) (nreverse result))
-      (assert-equal '(0 3 3 3 3 3) (nreverse side-effects)))))
+          (push i result)))
+      (assert-equal ____ (nreverse result))
+      (assert-equal ____ (nreverse side-effects)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -98,9 +95,9 @@
       (flet ((return-0 () (push 0 side-effects) 0)
              (return-3 () (push 3 side-effects) 3))
         (for (i (return-0) (return-3))
-             (push i result)))
-      (assert-equal '(0 1 2 3) (nreverse result))
-      (assert-equal '(3 0) (nreverse side-effects)))))
+          (push i result)))
+      (assert-equal ____ (nreverse result))
+      (assert-equal ____ (nreverse side-effects)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -108,16 +105,12 @@
   (macrolet ((for ((var start stop) &body body)
                ;; Fill in the blank with a correct FOR macroexpansion that is
                ;; not affected by the three macro pitfalls mentioned above.
-               (let ((limit (gensym "LIMIT")))
-                 `(do ((,var ,start (1+ ,var))
-                       (,limit ,stop))
-                      ((> ,var ,limit))
-                    ,@body))))
+               ____))
     (let ((side-effects '())
           (result '()))
       (flet ((return-0 () (push 0 side-effects) 0)
              (return-3 () (push 3 side-effects) 3))
         (for (i (return-0) (return-3))
-             (push i result)))
+          (push i result)))
       (assert-equal '(0 1 2 3) (nreverse result))
       (assert-equal '(0 3) (nreverse side-effects)))))
